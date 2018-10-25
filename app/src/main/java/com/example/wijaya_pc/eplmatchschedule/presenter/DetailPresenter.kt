@@ -6,6 +6,9 @@ import com.example.wijaya_pc.eplmatchschedule.model.MatchResponse
 import com.example.wijaya_pc.eplmatchschedule.model.TeamResponse
 import com.example.wijaya_pc.eplmatchschedule.view.DetailView
 import com.google.gson.Gson
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -17,32 +20,32 @@ class DetailPresenter(
 
     fun getMatchDetail(matchID: String?) {
         view.showLoading()
-        doAsync {
-            val data = gson.fromJson(
-                apiRepository.doRequest(TheSportDBApi.getMatchDetail(matchID)),
-                MatchResponse::class.java
-            )
 
-            uiThread {
-                view.hideLoading()
-                view.getMatch(data.events[0])
+        async(UI) {
+            val data = bg {
+                gson.fromJson(
+                    apiRepository.doRequest(TheSportDBApi.getMatchDetail(matchID)),
+                    MatchResponse::class.java
+                )
             }
+            view.getMatch(data.await().events[0])
+            view.hideLoading()
         }
+
     }
 
     fun getTeamDetail(teamID: String?, homeTeam: Boolean) {
         view.showLoading()
-        doAsync {
-            val data = gson.fromJson(
-                apiRepository.doRequest(TheSportDBApi.getTeam(teamID)),
-                TeamResponse::class.java
-            )
 
-            uiThread {
-                view.hideLoading()
-                view.getTeam(data.teams[0], homeTeam)
+        async(UI) {
+            val data = bg {
+                gson.fromJson(
+                    apiRepository.doRequest(TheSportDBApi.getTeam(teamID)),
+                    TeamResponse::class.java
+                )
             }
+            view.getTeam(data.await().teams[0], homeTeam)
+            view.hideLoading()
         }
-
     }
 }

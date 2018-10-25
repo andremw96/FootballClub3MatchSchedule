@@ -12,5 +12,4 @@ interface DetailView {
     fun removeFromFavorite()
     fun setFavorite()
     fun favoriteState()
-
 }

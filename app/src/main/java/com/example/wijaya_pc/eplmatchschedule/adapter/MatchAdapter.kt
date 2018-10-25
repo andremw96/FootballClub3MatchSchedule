@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.wijaya_pc.eplmatchschedule.R.id.*
-import com.example.wijaya_pc.eplmatchschedule.dateFormat
 import com.example.wijaya_pc.eplmatchschedule.dateToSimpleString
 import com.example.wijaya_pc.eplmatchschedule.model.Match
 import com.example.wijaya_pc.eplmatchschedule.ui.MatchUI
