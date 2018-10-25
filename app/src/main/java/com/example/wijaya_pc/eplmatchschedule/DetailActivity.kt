@@ -184,7 +184,7 @@ class DetailActivity : AppCompatActivity(), DetailView {
                 insert(
                     FavoriteMatches.TABLE_FAVORITE_MATCH,
                     FavoriteMatches.MATCH_ID to matches.matchId,
-                    FavoriteMatches.MATCH_DATE to dateFormat.format(matches.matchDate).toString(),
+                    FavoriteMatches.MATCH_DATE to dateToSimpleString(matches.matchDate),
                     FavoriteMatches.HOME_TEAM_ID to matches.idHomeTeam,
                     FavoriteMatches.AWAY_TEAM_ID to matches.idAwayTeam,
                     FavoriteMatches.HOME_TEAM_NAME to matches.homeTeam,
